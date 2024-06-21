@@ -27,7 +27,9 @@ class _BakerScreenState extends State<BakerScreen> {
             children: [
               DropdownMenu(
                 onSelected: (value) {
-                  backware = value;
+                  setState(() {
+                    backware = value;
+                  });
                 },
                 width: 200,
                 label: const Text("Backware"),
@@ -40,7 +42,9 @@ class _BakerScreenState extends State<BakerScreen> {
               const SizedBox(height: 16),
               DropdownMenu(
                 onSelected: (value) {
-                  temp = value;
+                  setState(() {
+                    temp = value;
+                  });
                 },
                 width: 200,
                 label: const Text("Temp"),
@@ -52,12 +56,14 @@ class _BakerScreenState extends State<BakerScreen> {
               ),
               const SizedBox(height: 16),
               OutlinedButton(
-                onPressed: () {
-                  // Berechne...
-                  setState(() {
-                    minutes = backzeit(backware!, temp!);
-                  });
-                },
+                onPressed: backware == null || temp == null
+                    ? null
+                    : () {
+                        // Berechne...
+                        setState(() {
+                          minutes = backzeit(backware!, temp!);
+                        });
+                      },
                 child: const Text("Berechne!"),
               ),
               const SizedBox(height: 32),
